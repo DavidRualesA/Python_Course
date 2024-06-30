@@ -1,16 +1,24 @@
 import mod
 import read_cvs as read
 import charts
+import pandas as pd
 
 def run():
+  '''
   data = read.read_csv('data.csv') 
   data = list(filter(lambda item: item['Continent'] == 'South America', data))
-
-  countries = list(map(lambda x: x['Country/Territory'],data))
+  countries = list(map(lambda x: x['Country'],data))
   percentages =  list(map(lambda x: x ['World Population Percentage'], data))
+  '''
 
+  df = pd.read_csv('data.csv')
+  df = df[df['Continent'] == 'Africa']
+
+  countries = df['Country'].values
+  percentages = df['World Population Percentage'].values
   charts.generate_pie_chart(countries,percentages)  
 
+  data = read.read_csv('data.csv')
   country = input('Type Country: ')
 
   result = mod.population_by_country(data, country)
@@ -18,7 +26,7 @@ def run():
   if len(result) > 0:
     country = result[0]
     labels, values = mod.get_population(country)
-    charts.generate_bar_chart(country['Country/Territory'], labels, values)
+    charts.generate_bar_chart(country['Country'], labels, values)
 
 if __name__ == '__main__':
   run()

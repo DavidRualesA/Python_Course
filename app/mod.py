@@ -14,7 +14,7 @@ def get_population(country_data):
   return labels , values
   
 def population_by_country(data, country):
-  result = list(filter(lambda item: item['Country/Territory'] == country, data))
+  result = list(filter(lambda item: item['Country'] == country, data))
   return result 
 
 def get_world_percentages(data):
@@ -22,5 +22,8 @@ def get_world_percentages(data):
   return percentages
 
 def get_country(data):
-  countries = list(map(lambda item: item['Country/Territory'], data))
+  countries = list(map(lambda item: item['Country'], data))
   return countries
+
+if __name__ == '__main__':
+  population_by_country()
